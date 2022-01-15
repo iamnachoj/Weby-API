@@ -3,13 +3,11 @@ const morgan = require("morgan"); // tracks info about requests
 const app = express();
 
 // bring in routes
-const {getPosts} = require("./routes/post")
+const postRoutes = require("./routes/post")
 
 // middleware
 app.use(morgan('dev'))
-
- 
-app.get("/", getPosts);
+app.use("/", postRoutes);
 
 //server port
 const port = 3000
