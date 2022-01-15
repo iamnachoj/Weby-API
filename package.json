@@ -1,0 +1,19 @@
+{
+  "name": "weby-api",
+  "version": "1.0.0",
+  "description": "Node API for Weby",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "API"
+  ],
+  "author": "Ignacio Jimenez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
