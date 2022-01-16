@@ -23,7 +23,9 @@ const postRoutes = require("./routes/post")
 
 // middleware
 app.use(morgan('dev'))
-app.use("/", postRoutes);
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
+app.use("/", postRoutes); 
 
 //server port
 const port = process.env.PORT || 3000;
