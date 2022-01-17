@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const uuidv1 = require('uuidv1')
-const { createHmac } = await import('crypto');
+const { createHmac } = require('crypto');
 
 //define Schema
 const userSchema = new mongoose.Schema({

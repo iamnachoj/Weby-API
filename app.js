@@ -20,14 +20,16 @@ mongoose.connection.on("error", err => {
 
 
 // bring in routes
-const postRoutes = require("./routes/post")
+const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth");
 
 // middleware
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
 app.use(expressValidator()); // from version 5.3.1. Not available in newer versions.
-app.use("/", postRoutes); 
+app.use("/", postRoutes);
+app.use("/", authRoutes); 
 
 //server port
 const port = process.env.PORT || 3000;
