@@ -4,6 +4,7 @@ dotenv.config();
 
 const express = require("express");
 const morgan = require("morgan"); // tracks info about requests
+const expressValidator = require("express-validator");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -25,6 +26,7 @@ const postRoutes = require("./routes/post")
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
+app.use(expressValidator()); // from version 5.3.1. Not available in newer versions.
 app.use("/", postRoutes); 
 
 //server port
