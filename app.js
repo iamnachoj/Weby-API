@@ -2,6 +2,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
+//express and other dependencies
 const express = require("express");
 const morgan = require("morgan"); // tracks info about requests
 const expressValidator = require("express-validator");

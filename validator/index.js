@@ -1,3 +1,4 @@
+//Validation for new posts
 exports.createPostValidator = (req, res, next) => {
   //title
   req.check("title", "Please, add a title").notEmpty();
