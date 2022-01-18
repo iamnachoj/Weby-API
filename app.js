@@ -5,6 +5,7 @@ dotenv.config();
 //express and other dependencies
 const express = require("express");
 const morgan = require("morgan"); // tracks info about requests
+const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const mongoose = require("mongoose");
 const app = express();
@@ -28,6 +29,7 @@ const authRoutes = require("./routes/auth");
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
+app.use(cookieParser())
 app.use(expressValidator()); // from version 5.3.1. Not available in newer versions.
 app.use("/", postRoutes);
 app.use("/", authRoutes); 

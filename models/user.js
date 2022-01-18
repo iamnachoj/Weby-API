@@ -43,16 +43,19 @@ userSchema.virtual("password")
 
  //methods
  userSchema.methods = {
-   encryptPassword: function(password){
-     if(!password) return "";
-     try {
-        return createHmac('sha256', this.salt)
-          .update(password)
-          .digest('hex');
-     } catch (err){
-       return "";
-     }
-   }
+    authenticate: function(plainPassword) {
+      return this.encryptPassword(plainPassword) === this.hashed_password
+    },
+    encryptPassword: function(password) {
+      if(!password) return "";
+      try {
+          return createHmac('sha256', this.salt)
+            .update(password)
+            .digest('hex');
+      } catch (err){
+        return "";
+      }
+    }
  }
 
 module.exports = mongoose.model("User", userSchema)
