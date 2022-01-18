@@ -21,7 +21,7 @@ exports.signin = (req, res) => {
   User.findOne({email}, (err, user) => {
     if(err || !user){
       return res.status(401).json({
-        error: "That email has not been registered yet. Please, sign up"
+        error: "Email and password do not match"
       });
     }
     // authenticate user (using authenticate() method from user model)
@@ -38,7 +38,9 @@ exports.signin = (req, res) => {
     const {_id, name, email} = user
     return res.status(200).json({token, user: {_id, email, name}});
   });
-  
-
-
+}
+//Log out process
+exports.signout = (req, res) => {
+  res.clearCookie("t");
+  return res.json({message: "Signed out successfully"})
 }
