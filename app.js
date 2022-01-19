@@ -32,7 +32,12 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(expressValidator()); // from version 5.3.1. Not available in newer versions.
 app.use("/", postRoutes);
-app.use("/", authRoutes); 
+app.use("/", authRoutes);
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).json({error: "Unauthorized user. Please log in or register"});
+    }
+  });
 
 //server port
 const port = process.env.PORT || 3000;
