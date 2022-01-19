@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
 require("dotenv").config();
+const expressJwt = require("express-jwt");
 const User = require("../models/user");
 
 //Registration process
@@ -31,7 +32,7 @@ exports.signin = (req, res) => {
       });
     } 
     //generate a token with user ID + secret
-    const token = jwt.sign({_id: user._id}, process.env.JWT_TOKEN);
+    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
     //persist the token as "t" in cookie to front-end client
     res.cookie("t", token, {expire: new Date() + 12000 })
     //json response with user and token to front-end client
@@ -44,3 +45,7 @@ exports.signout = (req, res) => {
   res.clearCookie("t");
   return res.json({message: "Signed out successfully"})
 }
+//check user logged in
+exports.requireSignin = expressJwt({
+  secret:process.env.JWT_SECRET,algorithms: ['HS256']
+});
