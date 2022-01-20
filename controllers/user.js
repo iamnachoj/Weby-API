@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 exports.userById = (req, res, next, id) => {
-  User.findById(id).exec((err, user) => {
+  User.findOne({id}, (err, user) => {
     if(err || !user){
       return res.status(400).json({
         error: "User not found"
@@ -9,7 +9,7 @@ exports.userById = (req, res, next, id) => {
     }
     req.profile = user // add profile object in request as "profile" with user info
     next();
-  })
+ });
 }
 
 exports.hasAuthorization = (req,res,next) => {
