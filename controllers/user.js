@@ -19,4 +19,18 @@ exports.hasAuthorization = (req,res,next) => {
       error: "You are not authorized to perform this action"
     })
   }
+  next();
+}
+
+exports.allUsers = (req, res) => {
+  User.find((err, users) => {
+    if(err){
+      return res.status(400).json({
+        error: err
+      })
+    }
+    return res.status(200).json({
+      users
+    })
+  }).select("_id name email created updated")
 }
