@@ -34,3 +34,7 @@ exports.allUsers = (req, res) => {
     })
   }).select("_id name email created updated")
 }
+
+exports.getUser = (req, res) => {
+  return res.json(req.profile)
+}
