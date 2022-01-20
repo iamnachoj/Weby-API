@@ -32,7 +32,7 @@ exports.allUsers = (req, res) => {
     return res.status(200).json({
       users
     })
-  }).select("_id name email created updated")
+  }).select("_id name created updated")
 }
 
 exports.getUser = (req, res) => {

@@ -1,5 +1,6 @@
 const express = require("express");
 const {userById, allUsers, getUser} = require("../controllers/user")
+const {requireSignin} = require("../controllers/auth")
 
 const router = express.Router() 
 
@@ -7,7 +8,7 @@ const router = express.Router()
 router.param("userId", userById)
 
 router.get("/users", allUsers)
-router.get("/users/:userId", getUser )
+router.get("/users/:userId", requireSignin, getUser )
 
 
 
