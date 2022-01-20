@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {ObjectId} = mongoose.Schema; // destructure ObjectId, value that has the ID of the object, and ref: User. Ch
 
 // define schema
 const postSchema = new mongoose.Schema({
@@ -9,6 +10,18 @@ const postSchema = new mongoose.Schema({
   body: {
     type: String,
     required: true
+  },
+  photo: {
+    type: Buffer,
+    contentType: String
+  },
+  postedBy: {
+    type: ObjectId,
+    ref: "User"
+  },
+  created: {
+    type: Date,
+    default: Date.now
   }
 });
 
