@@ -1,6 +1,7 @@
 ** END POINTS DOCS
 
 GET /posts                === get all posts
+GET /posts/:postId        === get specific post
 GET /posts/by/:UserId     === get all posts from user (id)
 POST /posts/new/:UserId   === create a new post (needs auth)
 POST /signup              === create a new user. (needs json object with keys: name, email and password)

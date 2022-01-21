@@ -1,6 +1,8 @@
 const Post = require("../models/post");
 const formidable = require("formidable");
 const fs = require("fs");
+const req = require("express/lib/request");
+const res = require("express/lib/response");
 
 //params Post by ID
 exports.postById = (req, res, next, id) => {
@@ -18,7 +20,7 @@ exports.postById = (req, res, next, id) => {
 }
 //Get the posts
 exports.getPosts = (req, res) => {
-   const posts = Post.find()
+   Post.find()
    .populate("postedBy", "name")
    .select("_id title body")
    .then((posts) => {
@@ -26,7 +28,18 @@ exports.getPosts = (req, res) => {
    })
    .catch(err => console.log(err))
 }
-
+//get one post
+exports.getOnePost = (req, res) => {
+  const post = req.post
+  Post.find({title: post.title}, (err, post) => {
+    if(err){
+      return res.status(400).json({
+        error: "Post not found"
+      })
+    }
+    return res.status(200).json(post)
+  })
+}
 // get posts by user
 exports.postsByUser = (req, res) => {
   Post.find({postedBy: req.profile._id})
@@ -72,3 +85,30 @@ exports.createPost = (req, res, next) => {
     });
   });
  }
+
+//check if the user who wants to do changes is the user who posted
+exports.isPoster = (req, res, next) => {
+  let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id;
+  if(!isPoster){
+    return res.status(403).json({
+      error: "User not authorized"
+    });
+  }
+  console.log("Allowed")
+  next();
+}
+
+//delete Post
+exports.deletePost = (req, res) => {
+  let post = req.post
+  post.remove((err, post)=> {
+   if(err){
+     return res.status(400).json({
+       error: err
+     });
+   }
+    res.json({
+     message: "Post deleted."
+   });
+  });
+}
