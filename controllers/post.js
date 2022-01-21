@@ -1,8 +1,6 @@
 const Post = require("../models/post");
 const formidable = require("formidable");
 const fs = require("fs");
-const req = require("express/lib/request");
-const res = require("express/lib/response");
 
 //params Post by ID
 exports.postById = (req, res, next, id) => {
