@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const User = require("../models/user");
 
+//params Users by ID
 exports.userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if(err || !user){
@@ -13,6 +14,7 @@ exports.userById = (req, res, next, id) => {
   });
 }
 
+//check if user is authorized (method used to perform certain actions)
 exports.hasAuthorization = (req,res,next) => {
   const authorized = req.profile && req.auth && req.profile._id === req.auth._id
   if(!authorized){
@@ -23,6 +25,7 @@ exports.hasAuthorization = (req,res,next) => {
   next();
 }
 
+//get all users
 exports.allUsers = (req, res) => {
   User.find((err, users) => {
     if(err){
@@ -36,6 +39,7 @@ exports.allUsers = (req, res) => {
   }).select("_id name created updated")
 }
 
+//get a particular user
 exports.getUser = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
@@ -43,6 +47,7 @@ exports.getUser = (req, res) => {
   return res.json(req.profile)
 }
 
+//update an user
 exports.updateUser = (req, res, next) => {
   let user = req.profile
   user = _.extend(user, req.body) // extend - mutate the source object. check documentation for lodash (extend method)
@@ -60,6 +65,7 @@ exports.updateUser = (req, res, next) => {
   })
 }
 
+//deletes an user
 exports.deleteUser = (req, res, next) => {
   let user = req.profile;
   user.remove((err, deletedUser) => {
