@@ -2,6 +2,20 @@ const Post = require("../models/post");
 const formidable = require("formidable");
 const fs = require("fs");
 
+//params Post by ID
+exports.postById = (req, res, next, id) => {
+  Post.findById(id)
+      .populate("postedBy", "_id name")
+      .exec((err, post) => {
+         if(err || !post){
+           res.status(400).json({
+             error: err
+           });
+         }
+         req.post = post
+         next();
+      });
+}
 //Get the posts
 exports.getPosts = (req, res) => {
    const posts = Post.find()
