@@ -5,12 +5,29 @@ const fs = require("fs");
 //Get the posts
 exports.getPosts = (req, res) => {
    const posts = Post.find()
-   .select("_id title body postedBy")
+   .populate("postedBy", "name")
+   .select("_id title body")
    .then((posts) => {
      res.status(200).json(posts)
    })
    .catch(err => console.log(err))
 }
+
+// get posts by user
+exports.postsByUser = (req, res) => {
+  Post.find({postedBy: req.profile._id})
+      .populate("postedBy", "name")
+      .sort("_created")
+      .exec((err, posts) => {
+        if(err){
+          return res.status(400).json({
+            error: err
+          });
+        }
+        res.json(posts)
+      })
+}
+
 //create a post
 exports.createPost = (req, res, next) => {
   //using formidable to create post. Check out documentation for more.
