@@ -2,7 +2,9 @@
  Weby app API server
 
 ## Weby Social Network
-A Social network that is secure, reliable and simple. Weby: your social media app. It has been built using NodeJS, Express + MongoDB
+A Social network that is secure, reliable and simple. Weby: your social media app. 
+
+It has been built using NodeJS, Express + MongoDB, and following the best practices and methodologies of the mentioned tools. 
 
 ## Getting Started
 
