@@ -8,6 +8,7 @@ const morgan = require("morgan"); // tracks info about requests
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const fs = require("fs");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser())
 app.use(expressValidator()); // from version 5.3.1. Not available in newer versions.
+app.use(cors())
 app.use("/", postRoutes);
 app.use("/", authRoutes);
 app.use("/", userRoutes);
