@@ -22,7 +22,7 @@ exports.getPosts = (req, res) => {
    .populate("postedBy", "name")
    .select("_id title body")
    .then((posts) => {
-     res.status(200).json(posts)
+     res.status(200).json(posts.reverse()) //reverse to get the newest posts first
    })
    .catch(err => console.log(err))
 }
