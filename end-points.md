@@ -3,7 +3,7 @@
 GET /posts                   === get all posts
 GET /posts/:postId           === get specific post
 GET /posts/by/:UserId        === get all posts from user (id)
-POST /posts/new/:UserId      === create a new post (needs auth)
+POST /posts/new/:UserId      === create a new post (needs auth)(needs form system)
 POST /signup                 === create a new user. (needs json object with keys: name, email and password)
 POST /signin                 === authenticates an user, and creates a jwt + a "t" cookie. (needs json object with keys: email and password)
 GET /signout                 === eliminates cookie "t" that gets generated with signin endpoint.
