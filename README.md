@@ -4,6 +4,16 @@
 ## Weby Social Network
 A Social network that is secure, reliable and simple. Weby: your social media app
 
+## Getting Started
+
+The easiest way to get started is to clone the repository:
+
+1. Clone the repository ``Git clone https://github.com/iamnachoj/Movie-API/``
+2. Change directory ``cd Movie-API``
+3. Install NPM dependencies ``npm install``
+6. Start the server ``npm run start``
+   Note: It is recommended to install nodemon for live reloading - It watches for any changes in your node.js app and automatically restarts the server
+
 ## End-points
 ### Users
 - POST /signup - create a new user. (needs json object with keys: name, email and password).
