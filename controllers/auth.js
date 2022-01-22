@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const user = require("../models/user");
 require("dotenv").config();
 const expressJwt = require("express-jwt");
 const User = require("../models/user");
@@ -31,6 +30,9 @@ exports.signin = (req, res) => {
         error: "Incorrect password"
       });
     } 
+    user.lastConnected = Date.now()
+    user.save()
+    console.log(user.lastConnected, user.name)
     //generate a token with user ID + secret
     const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
     //persist the token as "t" in cookie to front-end client

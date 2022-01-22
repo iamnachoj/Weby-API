@@ -23,7 +23,11 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  updated: Date
+  updated: Date,
+  lastConnected: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 //virtual field
