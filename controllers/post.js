@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const formidable = require("formidable");
 const fs = require("fs");
+const _ = require("lodash");
 
 //params Post by ID
 exports.postById = (req, res, next, id) => {
@@ -94,6 +95,24 @@ exports.isPoster = (req, res, next) => {
   }
   console.log("Allowed")
   next();
+}
+
+//update Post
+exports.updatePost = (req, res, next) => {
+ let post = req.post
+ post = _.extend(post, req.body);
+ post.updated = Date.now()
+ post.save((err, post) => {
+   if(err){res.status(400).json({
+     error: err
+    });
+   }
+   res.status(200).json({
+     name: post.title,
+     message: "Post updated",
+     post: post
+   })
+ })
 }
 
 //delete Post
