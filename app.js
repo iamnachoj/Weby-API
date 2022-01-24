@@ -57,7 +57,7 @@ app.use(function (err, req, res, next) {
   });
 
 //server port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, (err) => {
     console.log(`server started on port ${port}`)
 });
