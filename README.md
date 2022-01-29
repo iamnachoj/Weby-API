@@ -26,8 +26,8 @@ The easiest way to get started is to clone the repository:
 - GET /signout - eliminates cookie 't' that gets generated with signin endpoint.
 - GET /users - gets all users' names.
 - GET /users/:userId - gets specific user (needs auth).
-- PUT /users/:userId - updates user (needs auth + same user. Doesn't require all fields, just the ones to be changed).
-- DELETE /users/:userId - removes user (needs auth + same user).
+- PUT /users/edit/:userId - updates user (needs auth + same user. Doesn't require all fields, just the ones to be changed).
+- DELETE /users/delete/:userId - removes user (needs auth + same user).
 
 ### Posts
 - GET /posts - get all posts.

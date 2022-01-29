@@ -12,6 +12,6 @@ router.param("postId", postById);
 
 router.get("/users", allUsers)
 router.get("/users/:userId", requireSignin, getUser)
-router.put("/users/:userId", requireSignin, hasAuthorization, updateUser)
-router.delete("/users/:userId", requireSignin, hasAuthorization, deleteUser)
+router.put("/users/edit/:userId", requireSignin, hasAuthorization, updateUser)
+router.delete("/users/delete/:userId", requireSignin, hasAuthorization, deleteUser)
 module.exports = router;
