@@ -7,8 +7,8 @@
     "GET /signout":"eliminates cookie 't' that gets generated with signin endpoint.",
     "GET /users": "gets all users' names.",
     "GET /users/:userId": "gets specific user (needs auth).",
-    "PUT /users/:userId": "updates user (needs auth + same user. Doesn't require all fields, just the ones to be changed).",
-    "DELETE /users/:userId " : "removes user (needs auth + same user)"
+    "PUT /users/edit/:userId": "updates user (needs auth + same user. Doesn't require all fields, just the ones to be changed).",
+    "DELETE /users/delete/:userId " : "removes user (needs auth + same user)"
   },
   "Post end-points": {
     "GET /posts" : "get all posts",
@@ -16,6 +16,6 @@
     "GET /posts/by/:UserId" : "get all posts from user (id)",
     "POST /posts/new/:UserId" : "create a new post (needs auth)(needs form system)",
     "DELETE /posts/delete/:postId" : "removes post (needs auth + same user who posted)",
-    "PUT /posts/:postId" : "updates post (needs auth + same user who posted)"
+    "PUT /posts/edit/:postId" : "updates post (needs auth + same user who posted)"
   }
 }
