@@ -35,5 +35,5 @@ The easiest way to get started is to clone the repository:
 - GET /posts/by/:UserId - get all posts from user (id).
 - POST /posts/new/:UserId - create a new post (needs auth)(needs form system).
 - DELETE /posts/delete/:postId - removes post (needs auth + same user who posted).
-- PUT /posts/:postId - updates post (needs auth + same user who posted).
+- PUT /posts/edit/:postId - updates post (needs auth + same user who posted).
 

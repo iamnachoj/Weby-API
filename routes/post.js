@@ -22,7 +22,7 @@ router.post("/posts/new/:userId", requireSignin, createPost, createPostValidator
 //update posts
 router.put("/posts/edit/:postId", requireSignin, isPoster, updatePost);
 //delete posts
-router.delete("/posts/:postId", requireSignin, isPoster, deletePost);
+router.delete("/posts/delete/:postId", requireSignin, isPoster, deletePost);
 
 
 module.exports = router;
