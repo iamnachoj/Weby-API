@@ -4,6 +4,9 @@
 ## Weby Social Network
 A Social network that is secure, reliable and simple. Weby: your social media app. 
 
+## Why is Weby different?
+Weby is a Social network application that stays off the beaten track: no reels, no extra ads, not trying to call for your attention. It serves just one purpose: keeping track on your friends and family (which it's ultimately the purpose of a Social network). Completely free: sign up, create your profile, follow your friends and see what they are up to!
+
 It has been built using NodeJS, Express + MongoDB, and following the best practices and methodologies of the mentioned tools. 
 
 ## Getting Started
