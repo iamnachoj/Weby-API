@@ -33,9 +33,9 @@ exports.allUsers = (req, res) => {
         error: err
       })
     }
-    return res.status(200).json({
+    return res.status(200).json(
       users
-    })
+    )
   }).select("_id name created updated")
 }
 
