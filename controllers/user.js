@@ -1,5 +1,7 @@
 const _ = require("lodash");
 const User = require("../models/user");
+const formidable = require("formidable");
+const fs = require("fs");
 
 //params Users by ID
 exports.userById = (req, res, next, id) => {
@@ -47,23 +49,60 @@ exports.getUser = (req, res) => {
   return res.json(req.profile)
 }
 
-//update an user
+// update an user
+// exports.updateUser = (req, res, next) => {
+//   let user = req.profile
+//   user = _.extend(user, req.body) // extend - mutate the source object. check documentation for lodash (extend method)
+//   user.updated = Date.now()
+//   user.save((err) => {
+//     if(err){
+//       return res.status(400).json({
+//         error: "User not authorized to perform this action"
+//       })
+//     }
+//     req.profile.hashed_password = undefined;
+//     req.profile.salt = undefined;
+//     req.profile.__v = undefined;
+//     res.json(user)
+//   })
+// }
+
 exports.updateUser = (req, res, next) => {
-  let user = req.profile
-  user = _.extend(user, req.body) // extend - mutate the source object. check documentation for lodash (extend method)
-  user.updated = Date.now()
-  user.save((err) => {
-    if(err){
-      return res.status(400).json({
-        error: "User not authorized to perform this action"
-      })
-    }
-    req.profile.hashed_password = undefined;
-    req.profile.salt = undefined;
-    req.profile.__v = undefined;
-    res.json(user)
-  })
-}
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+      console.log(files)
+      if (err) {
+          return res.status(400).json({
+              error: 'Avatar could not be uploaded'
+          });
+      }
+      // save user
+      let user = req.profile;
+      // console.log("user in update: ", user);
+      user = _.extend(user, fields);
+
+      user.updated = Date.now();
+      // console.log("USER FORM DATA UPDATE: ", user);
+
+      if (files.avatar) {
+          user.avatar.data = fs.readFileSync(files.avatar.filepath);
+          user.avatar.contentType = files.avatar.type;
+      }
+
+      user.save((err, result) => {
+          if (err) {
+              return res.status(400).json({
+                  error: err
+              });
+          }
+          user.hashed_password = undefined;
+          user.salt = undefined;
+          // console.log("user after update with formdata: ", user);
+          res.json(user);
+      });
+  });
+};
 
 //deletes an user
 exports.deleteUser = (req, res, next) => {

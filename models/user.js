@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
   lastConnected: {
     type: Date,
     default: Date.now
+  },
+  avatar: {
+    data: Buffer,
+    contentType: String
   }
 });
 
