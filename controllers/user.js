@@ -119,3 +119,10 @@ exports.deleteUser = (req, res, next) => {
     });
   });
 }
+
+exports.userAvatar = (req, res, next) => {
+  if(req.profile.avatar.data){
+    res.set(("Content-Type", req.profile.avatar.contentType));
+    return res.send(req.profile.avatar.data)
+  }
+}
