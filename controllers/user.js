@@ -38,7 +38,7 @@ exports.allUsers = (req, res) => {
     return res.status(200).json(
       users
     )
-  }).select("_id name created updated")
+  }).select("_id name avatar created updated")
 }
 
 //get a particular user
