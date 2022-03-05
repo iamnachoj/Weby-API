@@ -134,8 +134,8 @@ exports.userAvatar = (req, res, next) => {
 //Follow, unfollow
 exports.addFollowing = (req, res, next) => {
   User.findByIdAndUpdate(
-    req.body.userId, 
-    {$push: {following: req.body.followId}}, 
+    req.body.followId, 
+    {$push: {following: req.body.userId}}, 
     (err, result) => {
       if(err) {
         return res.status(400).json({error: err})
@@ -146,8 +146,8 @@ exports.addFollowing = (req, res, next) => {
 }
 exports.addFollower = (req, res) => {
   User.findByIdAndUpdate(
-    req.body.followId, 
-    {$push: {followers: req.body.userId}}, 
+    req.body.userId, 
+    {$push: {followers: req.body.followId}}, 
     {new: true}
   )
   .populate("following", "_id name")
@@ -165,8 +165,8 @@ exports.addFollower = (req, res) => {
 }
 exports.removeFollowing = (req, res, next) => {
   User.findByIdAndUpdate(
-    req.body.userId, 
-    {$pull: {following: req.body.unfollowId}}, 
+    req.body.followId, 
+    {$pull: {following: req.body.userId}}, 
     (err, result) => {
       if(err) {
         return res.status(400).json({error: err})
@@ -177,8 +177,8 @@ exports.removeFollowing = (req, res, next) => {
 }
 exports.removeFollower = (req, res) => {
   User.findByIdAndUpdate(
-    req.body.unfollowId, 
-    {$pull: {followers: req.body.userId}}, 
+    req.body.userId, 
+    {$pull: {followers: req.body.followId}}, 
     {new: true}
   )
   .populate("following", "_id name")
