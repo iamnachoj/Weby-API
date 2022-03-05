@@ -1,5 +1,15 @@
 const express = require("express");
-const {userById, hasAuthorization, allUsers, getUser, updateUser, deleteUser, userAvatar, addFollowing, addFollower} = require("../controllers/user")
+const {userById, 
+    hasAuthorization,
+    allUsers, 
+    getUser, 
+    updateUser, 
+    deleteUser, 
+    userAvatar, 
+    addFollowing, 
+    addFollower, 
+    removeFollowing, 
+    removeFollower } = require("../controllers/user")
 const {postById} = require("../controllers/post");
 const {requireSignin} = require("../controllers/auth");
 
@@ -15,6 +25,7 @@ router.get("/users/:userId", requireSignin, getUser)
 router.put("/users/edit/:userId", requireSignin, hasAuthorization, updateUser)
 router.delete("/users/delete/:userId", requireSignin, hasAuthorization, deleteUser)
 router.put("/users/follow", requireSignin, addFollowing, addFollower)
+router.put("/users/unfollow", requireSignin, removeFollowing, removeFollower)
 //Avatar separate route, to gain load time
 router.get("/users/avatar/:userId", userAvatar)
 module.exports = router;
