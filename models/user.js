@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uuidv1 = require('uuidv1')
 const { createHmac } = require('crypto');
+const {ObjectId} = mongoose.Schema
 
 //define Schema
 const userSchema = new mongoose.Schema({
@@ -35,7 +36,9 @@ const userSchema = new mongoose.Schema({
   about: {
     type: String,
     trim: true
-  }
+  },
+  following: [{type: ObjectId, ref: "User"}],
+  followers: [{type: ObjectId, ref: "User"}]
 });
 
 //virtual field
