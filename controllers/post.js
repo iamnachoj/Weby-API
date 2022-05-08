@@ -21,7 +21,7 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
    Post.find()
    .populate("postedBy", "name")
-   .select("_id title body")
+   .select("_id title body created")
    .then((posts) => {
      res.status(200).json(posts.reverse()) //reverse to get the newest posts first
    })
