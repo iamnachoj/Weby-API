@@ -28,6 +28,8 @@ The easiest way to get started is to clone the repository:
 - GET /users/:userId - gets specific user (needs auth).
 - PUT /users/edit/:userId - updates user (needs auth + same user. Doesn't require all fields, just the ones to be changed).
 - DELETE /users/delete/:userId - removes user (needs auth + same user).
+- PUT /users/follow": "starts following specific user (needs auth).
+- PUT /users/unfollow": "unfollow specific user (needs auth).
 
 ### Posts
 - GET /posts - get all posts.
