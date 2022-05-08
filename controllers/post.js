@@ -21,7 +21,7 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
    Post.find()
    .populate("postedBy", "name")
-   .select("_id title body created")
+   .select("_id title body created photo")
    .then((posts) => {
      res.status(200).json(posts.reverse()) //reverse to get the newest posts first
    })
@@ -72,10 +72,10 @@ exports.createPost = (req, res, next) => {
     req.profile.__v = undefined;
     post.postedBy = req.profile;
     //handle the files (in case there is image)
-    if(files.photo){
-      post.photo.data = fs.readFileSync(files.photo.path);
+    if (files.photo) {
+      post.photo.data = fs.readFileSync(files.photo.filepath);
       post.photo.contentType = files.photo.type;
-    }
+  }
     post.save((err, result) => {
       if(err){
         return res.status(400).json({error: err});
@@ -129,3 +129,10 @@ exports.deletePost = (req, res) => {
    });
   });
 }
+//send photo from the post
+exports.postPhoto = (req, res, next) => {
+  if(req.post.photo.data){
+  res.set('Content-Type', req.post.photo.contentType);
+  return res.send(req.post.photo.data);
+  }
+};

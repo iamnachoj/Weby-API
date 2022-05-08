@@ -91,7 +91,7 @@ exports.updateUser = (req, res, next) => {
 
       if (files.avatar) {
           user.avatar.data = fs.readFileSync(files.avatar.filepath);
-          user.avatar.contentType = files.avatar.mimetype;
+          user.avatar.contentType = files.avatar.type;
       }
 
       user.save((err, result) => {

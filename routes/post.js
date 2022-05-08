@@ -1,5 +1,5 @@
 const express = require("express");
-const {postById, getPosts, getOnePost, createPost, postsByUser, isPoster, deletePost, updatePost} = require("../controllers/post");
+const {postById, getPosts, getOnePost, createPost, postsByUser, isPoster, deletePost, updatePost, postPhoto} = require("../controllers/post");
 const {userById} = require("../controllers/user");
 const {requireSignin} = require("../controllers/auth");
 const {createPostValidator} = require("../validator");
@@ -23,6 +23,7 @@ router.post("/posts/new/:userId", requireSignin, createPost, createPostValidator
 router.put("/posts/edit/:postId", requireSignin, isPoster, updatePost);
 //delete posts
 router.delete("/posts/delete/:postId", requireSignin, isPoster, deletePost);
-
+//post image separate route, to gain load time
+router.get("/posts/photo/:postId", postPhoto)
 
 module.exports = router;
