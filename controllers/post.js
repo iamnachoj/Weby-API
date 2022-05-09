@@ -29,15 +29,7 @@ exports.getPosts = (req, res) => {
 }
 //get one post
 exports.getOnePost = (req, res) => {
-  const post = req.post
-  Post.find({title: post.title}, (err, post) => {
-    if(err){
-      return res.status(400).json({
-        error: "Post not found"
-      })
-    }
-    return res.status(200).json(post)
-  })
+  return res.json(req.post)
 }
 // get posts by user
 exports.postsByUser = (req, res) => {
