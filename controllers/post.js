@@ -90,22 +90,57 @@ exports.isPoster = (req, res, next) => {
 }
 
 //update Post
+// exports.updatePost = (req, res, next) => {
+//  let post = req.post
+//  post = _.extend(post, req.body);
+//  post.updated = Date.now()
+//  post.save((err, post) => {
+//    if(err){res.status(400).json({
+//      error: err
+//     });
+//    }
+//    res.status(200).json({
+//      name: post.title,
+//      message: "Post updated",
+//      post: post
+//    })
+//  })
+// }
+
 exports.updatePost = (req, res, next) => {
- let post = req.post
- post = _.extend(post, req.body);
- post.updated = Date.now()
- post.save((err, post) => {
-   if(err){res.status(400).json({
-     error: err
-    });
-   }
-   res.status(200).json({
-     name: post.title,
-     message: "Post updated",
-     post: post
-   })
- })
-}
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+      console.log(files)
+      if (err) {
+          return res.status(400).json({
+              error: 'Photo could not be uploaded'
+          });
+      }
+      // save post
+      let post = req.post;
+      // console.log("post in update: ", post);
+      post = _.extend(post, fields);
+
+      post.updated = Date.now();
+      // console.log("USER FORM DATA UPDATE: ", user);
+
+      if (files.photo) {
+          post.photo.data = fs.readFileSync(files.photo.filepath);
+          post.photo.contentType = files.photo.type;
+      }
+
+      post.save((err, result) => {
+          if (err) {
+              return res.status(400).json({
+                  error: err
+              });
+          }
+          console.log("post after update with formdata: ", post);
+          res.json(post);
+      });
+  });
+};
 
 //delete Post
 exports.deletePost = (req, res) => {
