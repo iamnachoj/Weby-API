@@ -21,7 +21,7 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
    Post.find()
    .populate("postedBy", "name")
-   .select("_id title body created photo")
+   .select("_id title body created photo updated")
    .then((posts) => {
      res.status(200).json(posts.reverse()) //reverse to get the newest posts first
    })
@@ -123,7 +123,7 @@ exports.updatePost = (req, res, next) => {
       post = _.extend(post, fields);
 
       post.updated = Date.now();
-      // console.log("USER FORM DATA UPDATE: ", user);
+      console.log("POST FORM DATA UPDATE: ", post);
 
       if (files.photo) {
           post.photo.data = fs.readFileSync(files.photo.filepath);
