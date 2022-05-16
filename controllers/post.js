@@ -42,7 +42,7 @@ exports.postsByUser = (req, res) => {
             error: err
           });
         }
-        res.json(posts)
+        res.json(posts.reverse())
       })
 }
 
