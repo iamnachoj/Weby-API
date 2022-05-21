@@ -7,6 +7,8 @@ const _ = require("lodash");
 exports.postById = (req, res, next, id) => {
   Post.findById(id)
       .populate("postedBy", "_id name")
+      .populate("comments", "text created ")
+      .populate("comments.postedBy", "_id name")
       .exec((err, post) => {
          if(err || !post){
            res.status(400).json({
@@ -21,6 +23,8 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
    Post.find()
    .populate("postedBy", "name")
+   .populate("comments", "text created ")
+   .populate("comments.postedBy", "_id name")
    .select("_id title body created photo updated likes")
    .then((posts) => {
      res.status(200).json(posts.reverse()) //reverse to get the newest posts first
@@ -190,3 +194,36 @@ exports.removeLike = (req, res, next) => {
     }
   })
 }
+
+exports.addComment = (req, res, next) => {
+  let comment = req.body.comment
+  comment.postedBy = req.body.userId
+  Post.findByIdAndUpdate(req.body.postId, {$push: {comments: comment}}, {new: true})
+  .populate("comment.postedBy", "_id name")
+  .populate("postedBy", "_id name")
+  .exec((err, result) => {
+    if(err){
+      return res.status(400).json({
+        error: err
+      })
+    } else {
+      return res.json(result)
+    }
+  })
+};
+
+exports.removeComment = (req, res, next) => {
+  let comment = req.body.comment
+  Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id : comment._id}}}, {new: true})
+  .populate("comment.postedBy", "_id name")
+  .populate("postedBy", "_id name")
+  .exec((err, result) => {
+    if(err){
+      return res.status(400).json({
+        error: err
+      })
+    } else {
+      return res.json(result)
+    }
+  })
+};

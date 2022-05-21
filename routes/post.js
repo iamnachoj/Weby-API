@@ -1,5 +1,5 @@
 const express = require("express");
-const {postById, getPosts, getOnePost, createPost, postsByUser, isPoster, deletePost, updatePost, postPhoto, addLike, removeLike} = require("../controllers/post");
+const {postById, getPosts, getOnePost, createPost, postsByUser, isPoster, deletePost, updatePost, postPhoto, addLike, removeLike, addComment, removeComment} = require("../controllers/post");
 const {userById} = require("../controllers/user");
 const {requireSignin} = require("../controllers/auth");
 const {createPostValidator} = require("../validator");
@@ -16,6 +16,9 @@ router.get("/posts", getPosts );
 //like unlike posts
 router.put("/posts/like/", requireSignin, addLike);
 router.put("/posts/unlike/", requireSignin, removeLike);
+//comment posts
+router.put("/posts/comment", requireSignin, addComment);
+router.put("/posts/remove/comment", requireSignin, removeComment);
 //get one post
 router.get("/posts/:postId", getOnePost);
 //get posts by user
