@@ -14,8 +14,8 @@ router.param("postId", postById);
 //get all the posts
 router.get("/posts", getPosts );
 //like unlike posts
-router.put("/posts/like/:postId", requireSignin, addlike)
-router.put("/posts/unlike/:postId", requireSignin, removeLike)
+router.put("/posts/like/", requireSignin, addlike)
+router.put("/posts/unlike/", requireSignin, removeLike)
 //get one post
 router.get("/posts/:postId", getOnePost)
 //get posts by user
