@@ -195,9 +195,11 @@ exports.removeLike = (req, res, next) => {
 }
 
 exports.addComment = (req, res, next) => {
-  let comment = req.body.comment
+  let comment = {text: req.body.comment}
   comment.postedBy = req.body.userId
+  console.log(comment)
   Post.findByIdAndUpdate(req.body.postId, {$push: {comments: comment}}, {new: true})
+  .populate('comments.postedBy', '_id name')
   .populate("postedBy", "_id name")
   .exec((err, result) => {
     if(err){
@@ -213,6 +215,7 @@ exports.addComment = (req, res, next) => {
 exports.removeComment = (req, res, next) => {
   let comment = req.body.comment
   Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id : comment._id}}}, {new: true})
+  .populate('comments.postedBy', '_id name')
   .populate("postedBy", "_id name")
   .exec((err, result) => {
     if(err){
