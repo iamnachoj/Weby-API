@@ -38,7 +38,7 @@ exports.getOnePost = (req, res) => {
 exports.postsByUser = (req, res) => {
   Post.find({postedBy: req.profile._id})
       .populate("postedBy", "name")
-      .select("_id title body created photo updated likes")
+      .select("_id title body created photo updated likes comments")
       .sort("_created")
       .exec((err, posts) => {
         if(err){
