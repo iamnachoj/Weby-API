@@ -23,8 +23,7 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
    Post.find()
    .populate("postedBy", "name")
-   .populate("comments", "text created ")
-   .populate("comments.postedBy", "_id name")
+   .populate("comments", "text created postedBy")
    .select("_id title body created photo updated likes")
    .then((posts) => {
      res.status(200).json(posts.reverse()) //reverse to get the newest posts first
@@ -199,7 +198,6 @@ exports.addComment = (req, res, next) => {
   let comment = req.body.comment
   comment.postedBy = req.body.userId
   Post.findByIdAndUpdate(req.body.postId, {$push: {comments: comment}}, {new: true})
-  .populate("comment.postedBy", "_id name")
   .populate("postedBy", "_id name")
   .exec((err, result) => {
     if(err){
@@ -215,7 +213,6 @@ exports.addComment = (req, res, next) => {
 exports.removeComment = (req, res, next) => {
   let comment = req.body.comment
   Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id : comment._id}}}, {new: true})
-  .populate("comment.postedBy", "_id name")
   .populate("postedBy", "_id name")
   .exec((err, result) => {
     if(err){
