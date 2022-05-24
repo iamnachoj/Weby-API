@@ -1,7 +1,12 @@
 const nodeMailer = require("nodemailer");
- 
+ //dotenv package
+const dotenv = require("dotenv");
+dotenv.config();
+
 const defaultEmailData = { from: "noreply@node-react.com" };
- 
+
+//this needs some extra work. Lecture 200
+
 exports.sendEmail = emailData => {
     const transporter = nodeMailer.createTransport({
         host: "smtp.gmail.com",
@@ -9,8 +14,8 @@ exports.sendEmail = emailData => {
         secure: false,
         requireTLS: true,
         auth: {
-            user: "youremail@gmail.com",
-            pass: "kshzlmomlthllktq"
+            user: "nachojimenez.94@gmail.com",
+            pass: process.env.FORGOT_PASS_KEY
         }
     });
     return (
