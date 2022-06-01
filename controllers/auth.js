@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const _ = require('lodash');
 const expressJwt = require("express-jwt");
 const User = require("../models/user");
 const { sendEmail } = require("../helpers");
@@ -111,7 +112,6 @@ exports.forgotPassword = (req, res) => {
 
 exports.resetPassword = (req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
-
   User.findOne({ resetPasswordLink }, (err, user) => {
       // if err or no user
       if (err || !user)
