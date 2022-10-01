@@ -16,7 +16,7 @@ The easiest way to get started is to clone the repository:
 1. Clone the repository ``Git clone https://github.com/iamnachoj/Weby-API/``
 2. Change directory ``cd Weby-API``
 3. Install NPM dependencies ``npm install``
-6. Start the server ``npm run start``
+6. Start the server ``npm run dev``
    Note: It is recommended to install nodemon for live reloading - It watches for any changes in your node.js app and automatically restarts the server
    Side Note: to run full app locally with my own Weby-Client, you will also need to clone repository <a href="https://github.com/iamnachoj/Weby-Client"> Weby Client </a>, and run ``npm start`` on a different terminal while starting already the API
 
